@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Points Collectes: Fiche{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Points Collectes: Fiche d'un point collect</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{  path('dashbord') }}">Accueil</a></li>
+                            <li class="breadcrumb-item"><a href="{{  path('pointscollects_index') }}">Points Collectes</a></li>
+                            <li class="breadcrumb-item active">Fiche d'un point collect</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h3 class="card-title">Fiche d'un point collect</h3>
+                        <span class="float-right">{{ include('pointscollects/_delete_form.html.twig') }}</span>
+                        <a href="{{ path('pointscollects_edit', {'id': pointscollect.id}) }}" class="btn btn-outline-warning float-right mr-2" >Modifier</a>
+                        <div class="card-tools mr-2">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ pointscollect.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Libelle</th>
+                                <td>{{ pointscollect.libelle }}</td>
+                            </tr>
+                            <tr>
+                                <th>Adresse</th>
+                                <td>{{ pointscollect.adresse }}</td>
+                            </tr>
+                            <tr>
+                                <th>CodePostal</th>
+                                <td>{{ pointscollect.codePostal }}</td>
+                            </tr>
+                            <tr>
+                                <th>Ville</th>
+                                <td>{{ pointscollect.ville }}</td>
+                            </tr>
+                            <tr>
+                                <th>TelFixe</th>
+                                <td>{{ pointscollect.telFixe }}</td>
+                            </tr>
+                            <tr>
+                                <th>TelPortable</th>
+                                <td>{{ pointscollect.telPortable }}</td>
+                            </tr>
+                            <tr>
+                                <th>CoordLatLng</th>
+                                <td>{{ pointscollect.coordLatLng }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

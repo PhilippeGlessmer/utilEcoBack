@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche utilisateur: {{ user.civil ~' '~ user.nom ~' '~ user.prenom }}{% endblock %}
+
+{% block body %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Utilisateurs: Fiche Utilisateur</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{  path('dashbord') }}">Accueil</a></li>
+                            <li class="breadcrumb-item"><a href="{{  path('users_index') }}">Utilisateurs</a></li>
+                            <li class="breadcrumb-item active">Fiche utilisateur: {{ user.civil ~' '~ user.nom ~' '~ user.prenom }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Fiche utilisateur: {{ user.civil ~' '~ user.nom ~' '~ user.prenom }}</h3>
+                                <span class="float-right">{{ include('users/_delete_form.html.twig') }}</span>
+                                <a href="{{ path('users_edit', {'id': user.id}) }}" class="btn btn-outline-warning float-right mr-2">Modifier</a>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th>Id</th>
+                                        <td>{{ user.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td>{{ user.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Roles</th>
+                                        <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Password</th>
+                                        <td>{{ user.password }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Civil</th>
+                                        <td>{{ user.civil }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Nom</th>
+                                        <td>{{ user.nom }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Prenom</th>
+                                        <td>{{ user.prenom }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>IsVerified</th>
+                                        <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Password First</th>
+                                        <td>{{ user.passwordFirst ? user.passwordFirst : '' }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock %}

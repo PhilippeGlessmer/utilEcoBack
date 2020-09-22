@@ -1,0 +1,215 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fournisseur{% endblock %}
+
+{% block body %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Fournisseurs: Fiche Fournisseur</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{  path('dashbord') }}">Accueil</a></li>
+                            <li class="breadcrumb-item"><a href="{{  path('fournisseurs_index') }}">Fournisseurs</a></li>
+                            <li class="breadcrumb-item active">Fiche utilisateur: {{ fournisseur.libelle }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                <h3 class="card-title">Tableau fournisseur: {{ fournisseur.libelle }}</h3>
+                                <span class="float-right">{{ include('fournisseurs/_delete_form.html.twig') }}</span>
+                                <a href="{{ path('fournisseurs_edit', {'id': fournisseur.id}) }}" class="btn btn-outline-warning float-right mr-2">Modifier</a>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th>Contact</th>
+                                        <td>{{ fournisseur.user.civil~ ' '~fournisseur.user.nom~ ' '~fournisseur.user.prenom }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Email</th>
+                                        <td><a href="mailto:{{ fournisseur.user.email}}">{{ fournisseur.user.email}}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Société</th>
+                                        <td>{{ fournisseur.libelle }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Adresse</th>
+                                        <td>{{ fournisseur.adresse }}, {{ fournisseur.codePostale }}, {{ fournisseur.ville }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Telephone Fixe</th>
+                                        <td>{{ fournisseur.telFixe }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Telephone Portable</th>
+                                        <td>{{ fournisseur.telPortable }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <table class="table table-bordered table-hover">
+                                    <tr>
+                                        <td>Départ</td>
+                                        <td colspan="2"><span id="depart">{{ startAddress }}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>LatLng Départ</td>
+                                        <td colspan="2"><span id="LatLngdepart"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Arrivée</td>
+                                        <td colspan="2"><span id="Arrivee">{{ endAddress}}</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>LatLng Arrivée</td>
+                                        <td colspan="2"><span id="LatLngArrivee"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Distance</td>
+                                        <td><span id="distance"></span></td>
+                                        <td><span id="distanceAr"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Temps</td>
+                                        <td><span id="temps"></span> </td>
+                                        <td><span id="tempsAr"></span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Couts</td>
+                                        <td><span id="couts"></span></td>
+                                        <td><span id="coutsAr"></span></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                <h3 class="card-title">Ou se trouve: {{ fournisseur.libelle }}</h3>
+                                <span class="float-right">{{ include('fournisseurs/_delete_form.html.twig') }}</span>
+                                <a href="{{ path('fournisseurs_edit', {'id': fournisseur.id}) }}" class="btn btn-outline-warning float-right mr-2">Modifier</a>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div class="embed-responsive embed-responsive-1by1">
+                                    <div id="map" class="embed-responsive-item"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Les lots du {{ fournisseur.libelle }}</h3>
+                                <span class="float-right">{{ include('fournisseurs/_delete_form.html.twig') }}</span>
+                                <a href="{{ path('fournisseurs_edit', {'id': fournisseur.id}) }}" class="btn btn-outline-warning float-right mr-2">Modifier</a>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body h-100">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Etat</th>
+                                        <td>Début</td>
+                                        <td>Fin</td>
+                                        <td>Durée</td>
+                                        <td>Relation</td>
+                                        <th>actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for lot in fournisseur.lots%}
+
+                                        <tr>
+                                            <td>{{ lot.id }}</td>
+                                            {% if  lot.etat == true %}
+                                                <td><span class="badge badge-success">{{ lot.materiels|length }} appareil(s)</span> </td>
+                                            {% else %}
+                                                <td><span class="badge badge-warning">{{ lot.materiels|length }} appareil(s)</span> </td>
+                                            {% endif %}
+                                            <td>TODO</td>
+                                            <td>TODO</td>
+                                            <td>TODO</td>
+                                            <td>TODO Mail Client oui / Non</td>
+                                            <td>
+                                                <a href="{{ path('lots_show', {'id': lot.id}) }}" class="btn btn-success">Voir</a>
+                                                <a href="" class="btn btn-warning">Modif.</a>
+                                            </td>
+                                        </tr>
+
+                                    {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Etat</th>
+                                        <td>Début</td>
+                                        <td>Fin</td>
+                                        <td>Durée</td>
+                                        <td>Relation</td>
+                                        <th>actions</th>
+                                    </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUkudCw65LGGR_9kSe90Fssohw1ZgHO60&amp;callback=loadMap"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+        function loadMap() {
+            const elements = {
+                map: document.getElementById('map'),
+                start: {
+                    address: document.getElementById('depart'),
+                    coords: document.getElementById('LatLngdepart')
+                },
+                end: {
+                    address: document.getElementById('arrivee'),
+                    coords: document.getElementById('LatLngArrivee')
+                },
+                distance: document.getElementById('distance'),
+                time: document.getElementById('temps'),
+                cost: document.getElementById('couts')
+            };
+            const datas = {
+                addresses: {
+                    start: {lat: 43.1626, lng: -0.4968},
+                    end: "{{ endAddress }}",
+                }
+            };
+            displayMap(elements, datas)
+        }
+    </script>
+{% endblock %}

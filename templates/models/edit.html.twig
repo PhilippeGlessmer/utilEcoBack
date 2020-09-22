@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Models{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Modèles : Modification d'un modèle</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{  path('dashbord') }}">Accueil</a></li>
+                            <li class="breadcrumb-item"><a href="{{  path('models_index') }}">Modèles</a></li>
+                            <li class="breadcrumb-item active">Modification d'un modèle</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h3 class="card-title">Formulaire de modification d'un modèle</h3>
+                        <span class="float-right"> {{ include('models/_delete_form.html.twig') }}</span>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        {{ include('models/_form.html.twig', {'button_label': 'Enregistrer la modification en base de donnée'}) }}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

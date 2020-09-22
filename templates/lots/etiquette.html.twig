@@ -1,0 +1,99 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lots{% endblock %}
+
+{% block body %}
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Lots: Fiche lot <b>{{ lot.id }}</b></h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{  path('dashbord') }}">Accueil</a></li>
+                            <li class="breadcrumb-item"><a href="{{  path('lots_index') }}">Lots</a></li>
+                            <li class="breadcrumb-item active">Etiquette lot</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content-header -->
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <!-- /.card-header -->
+                            <div class="card-body h-100 text-center">
+                                <table class="w-100">
+                                    <tr>
+                                        <td style="font-size: 10em">Lot N° {{ lot.id  }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 5em">{{ lot.fournisseur.libelle }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 5em"><small>Date de Création: </small> {{ lot.dateDebut|date("m/d/Y") }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 5em">{{ lot.fournisseur.user.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 5em">{{lot.fournisseur.user.civil~' '~ lot.fournisseur.user.nom ~ ' '~lot.fournisseur.user.prenom }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 5em">{{lot.fournisseur.telPortable }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 5em">{{lot.fournisseur.telFixe }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-size: 10em">Lot N° {{ lot.id  }}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+
+    <!-- DataTables -->
+    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('js/adminlte.min.js') }}"></script>
+    <!-- page script -->
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+{% endblock %}
+

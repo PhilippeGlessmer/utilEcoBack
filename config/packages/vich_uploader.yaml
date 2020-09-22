@@ -1,0 +1,32 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+        proccess_image:
+            uri_prefix: /images/proccess
+            upload_destination: '%kernel.project_dir%/public/images/proccess'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
+        modele_image:
+            uri_prefix: /images/models
+            upload_destination: '%kernel.project_dir%/public/images/models'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
+        modele_notice:
+            uri_prefix: /uploads/notices
+            upload_destination: '%kernel.project_dir%/public/uploads/notices'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true
+        modele_driver:
+            uri_prefix: /uploads/pilotes
+            upload_destination: '%kernel.project_dir%/public/uploads/pilotes'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            inject_on_load:     false
+            delete_on_update:   true
+            delete_on_remove:   true

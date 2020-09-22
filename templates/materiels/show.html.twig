@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Materiels{% endblock %}
+
+{% block body %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Modèles: Fiche materiel</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{  path('dashbord') }}">Accueil</a></li>
+                        <li class="breadcrumb-item"><a href="{{  path('models_index') }}">Modèles</a></li>
+                        <li class="breadcrumb-item active">Fiche modèle: </li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Materiels</h3>
+                            <a href="{{  path('identification') }}" class="btn btn-dark float-right">Reprendre le test</a>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table class="table">
+                                <tbody>
+                                <tr>
+                                    <th>Id</th>
+                                    <td>{{ materiel.id }}</td>
+                                </tr>
+                                {% if materiel.contactusername %}
+                                    <tr>
+                                        <th>Contact</th>
+                                        <td>{{ materiel.contactusername }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Contact</th>
+                                        <td>{{ materiel.contactemail }}</td>
+                                    </tr>
+                                {% endif %}
+                                {% if materiel.lots %}
+                                <tr>
+                                    <th>Fournisseur</th>
+                                    <td>{{ materiel.lots.fournisseur.libelle }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Lots</th>
+                                    <td>{{ materiel.lots.id }}</td>
+                                </tr>
+                                {% endif %}
+                                <tr>
+                                    <th>Type</th>
+                                    <td>{{ materiel.modele.type.libelle }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Marque</th>
+                                    <td>{{ materiel.modele.marque.libelle }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Modele</th>
+                                    <td>{{ materiel.modele.libelle }}</td>
+                                </tr>
+                                <tr>
+                                    <th>NSerieFabricant</th>
+                                    <td>{{ materiel.nSerieFabricant }}</td>
+                                </tr>
+                                <tr>
+                                    <th>NSerieFournisseur</th>
+                                    <td>{{ materiel.nSerieFournisseur }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

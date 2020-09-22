@@ -1,0 +1,17 @@
+{{ form_start(form) }}
+    {{ form_row(form.marque) }}
+    <div class="row">
+        <div class="col-8">
+            {{ form_row(form.modele) }}
+        </div>
+        <div class="col-4">
+            <div id="addmodele" style="" class="">
+
+                <a href="{{ path('models_new') }}" class="btn btn-outline-success w-100 mt-4">Ajouter un modele</a>
+            </div>
+        </div>
+    </div>
+    {{ form_row(form.nSerieFabricant) }}
+
+    <button class="btn btn-success w-100">{{ button_label|default('Enregistrer l\'appareil dans la base de donnée') }}</button>
+{{ form_end(form) }}

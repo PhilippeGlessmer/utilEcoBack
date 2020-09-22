@@ -1,0 +1,196 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Materiels{% endblock %}
+
+{% block body %}
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Materiel: Fiche materiel {{ materiel.id }} / {{ materiel.etat }}</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{  path('dashbord') }}">Accueil</a></li>
+                            <li class="breadcrumb-item"><a href="{{  path('models_index') }}">Modèles</a></li>
+                            <li class="breadcrumb-item active">Fiche modèle: </li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        {% if etat == null %}
+                            {% if resultat %}
+                                {% if resultat == -1 %}
+                                    <div class="card card-danger">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Dernière Etape: Materiel à jeter</h3>
+                                        </div>
+                                    {% else %}
+                                        <div class="card card-warning">
+                                            <div class="card-header">
+                                                <h3 class="card-title">Dernière Etape: Materiel à donner</h3>
+                                            </div>
+                                    {%  endif %}
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        {{ proccess ? proccess.action : '' }}
+                                    </div>
+                                    <div class="card-footer">
+                                        {{ form_start(formpositif) }}
+                                        {{ form_widget(formpositif) }}
+                                        {{ form_end(formpositif) }}
+                                    </div>
+                                </div>
+                            {% else %}
+                                <div class="card card-success">
+                                    <div class="card-header">
+                                        <h3 class="card-title">Dernière Etape</h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                        Coller Pastille Verte et cloturer les resultats par le bouton juste ci-dessous,
+                                    </div>
+                                    <div class="card-footer">
+                                        {{ form_start(formpositif) }}
+                                        {{ form_widget(formpositif) }}
+                                        {{ form_end(formpositif) }}
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Fiche matériel</h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th>Id</th>
+                                        <td>{{ materiel.id }}</td>
+                                    </tr>
+                                    {% if materiel.contactusername %}
+                                        <tr>
+                                            <th>Contact</th>
+                                            <td>{{ materiel.contactusername }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Contact</th>
+                                            <td>{{ materiel.contactemail }}</td>
+                                        </tr>
+                                    {% endif %}
+
+                                    {% if materiel.distributeurs %}
+                                        <tr>
+                                            <th>Distributeur</th>
+                                            <td>{{ materiel.distributeurs.libelle }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    {% if materiel.lots %}
+                                        <tr>
+                                            <th>Fournisseur</th>
+                                            <td>{{ materiel.lots.fournisseur.libelle }}</td>
+                                        </tr>
+                                        <tr>
+                                            <th>Lots</th>
+                                            <td>{{ materiel.lots.id }}</td>
+                                        </tr>
+
+                                    {% endif %}
+                                    <tr>
+                                        <th>Image </th>
+                                        <td><img src="{{ vich_uploader_asset(materiel.modele, 'imageFile') }}"  alt="" class="w-25"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Type</th>
+                                        <td>{{ materiel.modele.type.libelle }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Marque</th>
+                                        <td>{{ materiel.modele.marque.libelle }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Modele</th>
+                                        <td>{{ materiel.modele.libelle }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>NSerieFabricant</th>
+                                        <td>{{ materiel.nSerieFabricant }}</td>
+                                    </tr>
+                                    {% if materiel.nSerieFournisseur %}
+                                    <tr>
+                                        <th>NSerieFournisseur</th>
+                                        <td>{{ materiel.nSerieFournisseur }}</td>
+                                    </tr>
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Page de Resultat
+
+                                </h3>
+                                <a href="" class="btn btn-success float-right">PDF</a>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+
+                                <table class="table">
+                                    <tr>
+                                        <th>Step</th>
+                                        <th>Tests</th>
+                                        <th>Résultats</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    {% for test in testmateriel %}
+                                        <tr>
+                                            <td>{{ test.proccess.ordre }}</td>
+                                            <td>
+
+
+                                                {{ test.proccess.action|striptags|slice(0, 45, true, '...')|raw ~'...'}}
+
+                                            </td>
+                                            <td>
+                                                {% if test.resultat == 1 %}
+                                                    <span class="badge badge-success">Reussi</span>
+                                                {% else %}
+                                                    <span class="badge badge-danger">Echec</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <a href="" class="btn btn-warning">Modif</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    <tr>
+                                        <th>Step</th>
+                                        <th>Tests</th>
+                                        <th>Résultats</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Types{% endblock %}
+
+{% block body %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Types d'appareillages: Fiche {{ type.libelle }}</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{  path('dashbord') }}">Accueil</a></li>
+                            <li class="breadcrumb-item"><a href="{{  path('types_index') }}">Types d'appareillages</a></li>
+                            <li class="breadcrumb-item active">Fiche: {{ type.libelle }} </li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Tableau Fiche: {{ type.libelle }} </h3>
+                                <span class="float-right">  {{ include('types/_delete_form.html.twig') }}</span>
+                                <a href="{{ path('types_edit', {'id': type.id}) }}" class="btn btn-outline-warning float-right mr-2">Modifier</a>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th>Id</th>
+                                        <td>{{ type.id }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Libelle</th>
+                                        <td>{{ type.libelle }}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Les procédures: {{ type.libelle }} </h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table class="table">
+                                    <thead>
+                                    <th>Step</th>
+                                    <th>Action à faire</th>
+                                    <th>Résultat Négatif</th>
+                                    <th>Actions</th>
+                                    </thead>
+                                    <tbody>
+                                        {% for procedure in process %}
+                                        <tr>
+                                            <td>{{ procedure.ordre }}</td>
+                                            <td>{{ procedure.action }}</td>
+                                            <td>{% if procedure.resultNegatif == -1 %}
+                                                    A jeter
+                                                {% elseif procedure.resultNegatif == -2 %}
+                                                    A donner
+                                                {% endif %}
+
+                                            </td>
+                                            <td>
+                                                <a href="{{ path('proccess_show', {'id': procedure.id}) }}" class="btn btn-success">Voir</a>
+                                                <a href="{{ path('proccess_edit', {'id': procedure.id}) }}" class="btn btn-warning">Modifier</a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                    <th>Step</th>
+                                    <th>Action à faire</th>
+                                    <th>Résultat Négatif</th>
+                                    <th>Actions</th>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Ajout d'une procédures pour {{ type.libelle }} </h3>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                {{ form_start(form) }}
+                                {{ form_widget(form) }}
+                                <button class="btn btn-success w-100">{{ button_label|default('Enregistrer') }}</button>
+                                {{ form_end(form) }}
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+{% endblock %}

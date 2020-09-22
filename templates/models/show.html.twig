@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Models{% endblock %}
+
+{% block body %}<!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Modèles: Fiche modèle: {{ model.libelle }} de la marque {{ model.marque.libelle }}</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{  path('dashbord') }}">Accueil</a></li>
+                            <li class="breadcrumb-item"><a href="{{  path('models_index') }}">Modèles</a></li>
+                            <li class="breadcrumb-item active">Fiche modèle: {{ model.libelle }}</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Fiche modèle: {{ model.libelle }}</h3>
+                                <span class="float-right "> {{ include('models/_delete_form.html.twig') }}</span>
+                                <a href="{{ path('models_edit', {'id': model.id}) }}" class="btn btn-outline-warning float-right mr-2">Modifier</a>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th>Id</th>
+                                        <td>{{ model.id }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Type</th>
+                                        <td><a href="">{{ model.type.libelle }}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Marque</th>
+                                        <td><a href="">{{ model.marque.libelle }}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>LibelleConstructeur</th>
+                                        <td>{{ model.libelle }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Image </th>
+                                        <td><img src="{{ vich_uploader_asset(model, 'imageFile') }}"  alt="" class="w-25"></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Notice </th>
+                                        <td><a href="{{ vich_uploader_asset(model, 'noticeFile') }}" target="_blank">{{ model.notice }}</a></td>
+                                    </tr>
+                                    <tr>
+                                        <th>Pilote </th>
+                                        <td><a href="{{ vich_uploader_asset(model, 'piloteFile') }}" target="_blank">{{ model.pilote }}</a></td>
+                                    </tr>
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+
+{% endblock %}

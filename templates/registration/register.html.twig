@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Utilisateur : Création d'un compte utilisateur</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{  path('dashbord') }}">Accueil</a></li>
+                        <li class="breadcrumb-item"><a href="{{  path('users_index') }}">Utilisateurs</a></li>
+                        <li class="breadcrumb-item active">Création d'un utilisateur</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="card card-default">
+                <div class="card-header">
+                    <h3 class="card-title">Formulaire de création d'un compte utilisateur</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                    </div>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    {% for flashError in app.flashes('verify_email_error') %}
+                        <div class="alert alert-danger" role="alert">{{ flashError }}</div>
+                    {% endfor %}
+                    {{ form_start(registrationForm) }}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_row(registrationForm.civil) }}
+                                {{ form_row(registrationForm.nom) }}
+                                {{ form_row(registrationForm.prenom) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form_row(registrationForm.email) }}
+                                <div style="display: none">
+                                    {{ form_row(registrationForm.plainPassword, {
+                                        label: 'Password',
+                                        value: generationpassword
+                                    }) }}
+                                    {{ form_row(registrationForm.passwordFirst, {
+                                        value: generationpassword}) }}
+                                </div>
+                                {{ form_row(registrationForm.telPortable) }}
+                                {{ form_row(registrationForm.tauxHoraire) }}
+                                {{ form_row(registrationForm.roles) }}
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100">Enregistrer la création du profil</button>
+                        {{ form_end(registrationForm) }}
+                    </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}

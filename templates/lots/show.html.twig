@@ -1,0 +1,153 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Lots{% endblock %}
+
+{% block body %}
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Lots: Fiche lot <b>{{ lot.id }}</b></h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="{{  path('dashbord') }}">Accueil</a></li>
+                        <li class="breadcrumb-item"><a href="{{  path('lots_index') }}">Lots</a></li>
+                        <li class="breadcrumb-item active">Fiche lot</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content-header -->
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Détail du Lot <b>{{ lot.id }}</b></h3>
+                            <span class="float-right">{{ include('lots/_delete_form.html.twig') }}</span>
+                            <a href="{{ path('lots_edit', {'id': lot.id}) }}" class="btn btn-outline-warning float-right mr-2">Modifier</a>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body h-100">
+                            <table class="table">
+                                <tr>
+                                    <td>Fournisseur</td>
+                                    <td>{{ lot.fournisseur.libelle }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Date début</td>
+                                    <td>{{ lot.dateDebut|date("m/d/Y") }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Date Fin</td>
+                                    <td>{{ lot.dateFin ?  lot.dateFin|date("m/d/Y")  : 'No close'}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Durée</td>
+                                    <td>
+                                        TODO
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Détail du Lot <b>{{ lot.id }}</b></h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body h-100">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Marque</th>
+                                    <th>Modèles</th>
+                                    <th>N. Serie Fab.</th>
+                                    <th>Etat</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                {% for materiel in lot.materiels %}
+
+                                <tr>
+                                    <td>{{ materiel.id }}</td>
+                                    <td>{{ materiel.modele.marque.libelle }}</td>
+                                    <td>{{ materiel.modele.libelle }}</td>
+                                    <td>{{ materiel.nSerieFabricant }}</td>
+                                    <td>
+                                        {% if materiel.etat == null %}
+                                            <h3><a href="{{ path('materiels_show', {'id': materiel.id}) }}" class="btn-outline-success"><span class="badge badge-dark">Test en cours</span></a></h3>
+                                        {% elseif materiel.etat == 1 %}
+                                            <h3><span class="badge badge-success">A Vendre</span></h3>
+                                        {% elseif materiel.etat == 2 %}
+                                            <h3><span class="badge badge-warning">A Donner</span></h3>
+                                        {% elseif materiel.etat == 3 %}
+                                            <h3><span class="badge badge-danger">A Recycler</span></h3>
+                                        {% elseif materiel.etat == 4 %}
+                                            <h3><span class="badge badge-primary">Att Requise</span></h3>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <!--<a href="" class="btn btn-success">Voir</a>-->
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Fournisseur</th>
+                                    <th>actions</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+
+    <!-- DataTables -->
+    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('js/adminlte.min.js') }}"></script>
+    <!-- page script -->
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+{% endblock %}
+

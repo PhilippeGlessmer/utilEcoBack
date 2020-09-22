@@ -1,0 +1,120 @@
+{% extends 'base.html.twig' %}
+{% block title %}Lots{% endblock %}
+{% block body %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Lots</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{  path('dashbord') }}">Accueil</a></li>
+                            <li class="breadcrumb-item active">Lots</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">Tableau des lots</h3>
+                                <a href="{{ path('lots_new') }}" class="btn btn-outline-success float-right">Entrer un nouveau lot</a>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <table id="example1" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Fournisseur</th>
+                                        <th>Nb</th>
+                                        <th>Etat</th>
+                                        <th>actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for lot in lots %}
+                                        <tr>
+                                            <td>{{ lot.id }}</td>
+                                            <td>{{ lot.fournisseur.libelle }}</td>
+                                            {% if  lot.etat == true %}
+                                                <td><span class="badge badge-success">{{ lot.materiels|length }} appareil(s)</span> </td>
+                                            {% else %}
+                                                <td><span class="badge badge-warning">{{ lot.materiels|length }} appareil(s)</span> </td>
+                                            {% endif %}
+                                            <td>
+                                                {% if  lot.etat == true %}
+                                                <span class="badge badge-success">Fermé</span>
+                                                {% else %}
+                                                <span class="badge badge-warning">Ouvert</span>
+                                                {% endif %}
+                                            </td>
+                                            <td>
+                                                <a href="{{ path('lots_show', {'id': lot.id}) }}" class="btn btn-success">Voir</a>
+                                                <a href="{{ path('lots_edit', {'id': lot.id}) }}" class="btn btn-warning">Modif.</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Fournisseur</th>
+                                        <th>Nb</th>
+                                        <th>Etat</th>
+                                        <th>actions</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <!-- /.card-body -->
+                        </div>
+                        <!-- /.card -->
+                    </div>
+                    <!-- /.col -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+{% endblock %}
+{% block javascripts %}
+
+    <!-- DataTables -->
+    <script src="{{ asset('plugins/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js') }}"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset('js/adminlte.min.js') }}"></script>
+    <!-- page script -->
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "responsive": true,
+                "autoWidth": false,
+            });
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
+        });
+    </script>
+{% endblock %}

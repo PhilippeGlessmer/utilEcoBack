@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche un Distributeurs{% endblock %}
+
+{% block body %}
+
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>Distributeurs: Fiche un Distributeur</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="{{  path('dashbord') }}">Accueil</a></li>
+                            <li class="breadcrumb-item"><a href="{{  path('distributeurs_index') }}">Distributeurs</a></li>
+                            <li class="breadcrumb-item active">Fiche un distributeur</li>
+                        </ol>
+                    </div>
+                </div>
+            </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+            <div class="container-fluid">
+                <div class="card card-default">
+                    <div class="card-header">
+                        <h3 class="card-title">Fiche distributeur</h3>
+                        <span class="float-right"> {{ include('distributeurs/_delete_form.html.twig') }}</span>
+                        <a href="{{ path('distributeurs_edit', {'id': distributeur.id}) }}" class="btn btn-outline-warning float-right mr-2">Modifier</a>
+                        <div class="card-tools mr-2">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ distributeur.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Libelle</th>
+                                <td>{{ distributeur.libelle }}</td>
+                            </tr>
+                            <tr>
+                                <th>Adresse</th>
+                                <td>{{ distributeur.adresse }}</td>
+                            </tr>
+                            <tr>
+                                <th>CodePostale</th>
+                                <td>{{ distributeur.codePostale }}</td>
+                            </tr>
+                            <tr>
+                                <th>Ville</th>
+                                <td>{{ distributeur.ville }}</td>
+                            </tr>
+                            <tr>
+                                <th>TelFixe</th>
+                                <td>{{ distributeur.telFixe }}</td>
+                            </tr>
+                            <tr>
+                                <th>TelPortable</th>
+                                <td>{{ distributeur.telPortable }}</td>
+                            </tr>
+                            <tr>
+                                <th>CoordLatLng</th>
+                                <td>{{ distributeur.CoordLatLng }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
